@@ -43,15 +43,3 @@ class Conexao {
     return self::$pdo;
   }
 }
-
-$pdo = Conexao::get();
-
-$sql = 'INSERT INTO produtos (nome, preco, estoque) VALUES (:nome, :preco, :estoque)';
-$stmt = $pdo->prepare($sql);
-$stmt->execute([
-  ':nome'    => 'Camiseta',
-  ':preco'   => 59.90,
-  ':estoque' => 10,
-]);
-echo 'Inserido com id ' . $pdo->lastInsertId();
-

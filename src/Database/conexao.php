@@ -20,6 +20,7 @@ class Conexao {
 }
 
 $pdo = Conexao::get();
+
 $sql = 'INSERT INTO produtos (nome, preco, estoque) VALUES (:nome, :preco, :estoque)';
 $stmt = $pdo->prepare($sql);
 $stmt->execute([
@@ -28,3 +29,20 @@ $stmt->execute([
   ':estoque' => 10,
 ]);
 echo 'Inserido com id ' . $pdo->lastInsertId();
+
+
+
+$pdo = Conexao::get();
+$id = $_GET['id'];
+$sql = "SELECT * FROM produtos WHERE id = $id";
+
+echo "<pre>SQL executado: $sql</pre>";
+
+$stmt = $pdo->query($sql);
+$stmt->execute([';id' => $id]);
+
+foreach ($stmt as $produto) {
+    echo $produto['id'] . ' - ';
+    echo $produto['nome'] . ' - R$ ';
+    echo $produto['preco'] . '<br>';
+}
